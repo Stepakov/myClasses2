@@ -47,5 +47,13 @@ class Date
         return $this->getDate();
     }
 
+    public function __set(string $name, $value): void
+    {
+        throw new \Exception( 'You cant change date in this way' );
+    }
 
+    public function __get(string $name)
+    {
+        throw new \Exception( 'You cant get date in this way' );
+    }
 }
