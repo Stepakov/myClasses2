@@ -51,10 +51,33 @@ class Name
         $this->lastName = $lastName;
     }
 
-    private function notEmptyAndLess30Chars(string $name)
+    /**
+     * @param string $name
+     * @return void
+     * @throws \Exception
+     */
+    private function notEmptyAndLess30Chars(string $name) : void
     {
-        if( empty( $name ) ) throw new \Exception( 'name is empty' );
+        if( empty( $name ) ) throw new \Exception( 'Name is empty' );
         if( strlen( $name ) > 30 ) throw new \Exception( 'Name is more 30 characters' );
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName() : string
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+
+    public function __toString() : string
+    {
+        return $this->getFullName();
+    }
+
+    public function __invoke() : string
+    {
+        return $this->getFullName();
     }
 
 
