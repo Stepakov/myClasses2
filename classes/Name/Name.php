@@ -4,8 +4,8 @@ namespace classes\Name;
 
 class Name
 {
-    private string $firstName;
-    private string $lastName;
+    public string $firstName;
+    public string $lastName;
 
     /**
      * @param string $firstName

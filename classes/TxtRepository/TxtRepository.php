@@ -6,19 +6,16 @@ use interfaces\RepositoryInterface\RepositoryInterface;
 
 class TxtRepository implements RepositoryInterface
 {
-    private static string $filename;
-    private array $fileParams;
-    private string $delimiter;
+    protected static string $filename;
+    protected array $fileParams;
+    protected string $delimiter;
 
-    public function __construct( $delimiter = '-', ...$params )
+    public function __construct( $delimiter = '-', ...$paramsInLine )
     {
         $this->delimiter = $delimiter;
-        $this->fileParams = $params ?? [];
+        $this->fileParams = $paramsInLine ?? [];
 
-//        foreach( $this->fileParams as $param )
-//        {
-//            var_dump( $param );
-//        }
+        $this->requireParamsInLine();
     }
 
     public static function setFilename( string $filename ) : void
@@ -44,7 +41,7 @@ class TxtRepository implements RepositoryInterface
 
             foreach( $this->fileParams as $key => $value )
             {
-                var_dump( $value );
+//                var_dump( $value );
                 $dt[ $value ]  = $lineData[ $key ];
             }
             $data[] = $dt;
@@ -53,21 +50,26 @@ class TxtRepository implements RepositoryInterface
         return $data;
     }
 
-    private function filenameIsSetCorrect() : void
+    protected function filenameIsSetCorrect() : void
     {
         if( !isset( self::$filename ) ) throw new \Exception( 'File is not set' );
         if( !file_exists( self::$filename ) ) throw new \Exception( 'File does not exists' );
     }
 
-    private function correctNumberOfParamsInLine(int $lineData) : void
+    protected function correctNumberOfParamsInLine(int $lineData) : void
     {
         if( $lineData !== count( $this->fileParams ) )
             throw new \Exception( 'Not correct number of params in line in file' );
     }
 
-    private function fileIsNotEmpty(int $count) : void
+    protected function fileIsNotEmpty(int $count) : void
     {
         if( $count <= 0 ) throw new \Exception( "File is empty" );
+    }
+
+    private function requireParamsInLine() : void
+    {
+        if( count( $this->fileParams ) === 0 ) throw new \Exception( 'Require to set params in line' );
     }
 
 
