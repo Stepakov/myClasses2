@@ -1,10 +1,10 @@
 <?php
 
-namespace classes\TxtRepository;
+namespace classes\TextRepository;
 
 use interfaces\RepositoryInterface\RepositoryInterface;
 
-class TxtRepository implements RepositoryInterface
+class TextRepository implements RepositoryInterface
 {
     protected static string $filename;
     protected array $fileParams;

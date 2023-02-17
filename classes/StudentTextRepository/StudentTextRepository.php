@@ -1,13 +1,13 @@
 <?php
 
-namespace classes\TextStudentRepository;
+namespace classes\StudentTextRepository;
 
 use classes\Date\Date;
 use classes\Name\Name;
 use classes\Student\Student;
-use classes\TxtRepository\TxtRepository;
+use classes\TextRepository\TextRepository;
 
-class TextStudentRepository extends TxtRepository
+class StudentTextRepository extends TextRepository
 {
     public function getData(): array
     {
