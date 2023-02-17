@@ -10,7 +10,7 @@ use classes\TextRepository\TextRepository;
 
 class StudentTextRepository extends TextRepository
 {
-    protected function generateData( array $lines ) : array
+    protected function generateData( \SimpleXMLElement|array &$lines ) : array
     {
         $data = [];
         foreach( $lines as $line )

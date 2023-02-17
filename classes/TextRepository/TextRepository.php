@@ -61,7 +61,7 @@ class TextRepository implements RepositoryInterface
         if( count( $this->fileParams ) === 0 ) throw new \Exception( 'Require to set params in line' );
     }
 
-    protected function generateData( array $lines ) : array
+    protected function generateData( \SimpleXMLElement|array &$lines ) : array
     {
         $data = [];
         foreach( $lines as $line )
