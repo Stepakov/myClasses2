@@ -26,26 +26,13 @@ class TextRepository implements RepositoryInterface
     {
         $this->filenameIsSetCorrect();
 
-        $data = [];
-
         $lines = file( self::$filename );
 
         $this->fileIsNotEmpty( count( $lines ) );
 
-        foreach( $lines as $line )
-        {
-            $dt = [];
-            $lineData = explode( $this->delimiter, $line );
+        $this->correctNumberOfParamsInLine( $lines[0] );
 
-            $this->correctNumberOfParamsInLine( count( $lineData ) );
-
-            foreach( $this->fileParams as $key => $value )
-            {
-//                var_dump( $value );
-                $dt[ $value ]  = $lineData[ $key ];
-            }
-            $data[] = $dt;
-        }
+        $data = $this->generateData( $lines );
 
         return $data;
     }
@@ -56,12 +43,14 @@ class TextRepository implements RepositoryInterface
         if( !file_exists( self::$filename ) ) throw new \Exception( 'File does not exists' );
     }
 
-    protected function correctNumberOfParamsInLine(int $lineData) : void
+    protected function correctNumberOfParamsInLine( string $lineData) : void
     {
+        $lineData = explode( $this->delimiter, $lineData );
+        $lineData = count( $lineData );
+
         if( $lineData !== count( $this->fileParams ) )
             throw new \Exception( 'Not correct number of params in line in file' );
     }
-
     protected function fileIsNotEmpty(int $count) : void
     {
         if( $count <= 0 ) throw new \Exception( "File is empty" );
@@ -72,5 +61,21 @@ class TextRepository implements RepositoryInterface
         if( count( $this->fileParams ) === 0 ) throw new \Exception( 'Require to set params in line' );
     }
 
+    protected function generateData( array $lines ) : array
+    {
+        $data = [];
+        foreach( $lines as $line )
+        {
+            $dt = [];
+            $lineData = explode( $this->delimiter, $line );
 
+            foreach( $this->fileParams as $key => $value )
+            {
+                $dt[ $value ]  = $lineData[ $key ];
+            }
+            $data[] = $dt;
+        }
+
+        return $data;
+    }
 }
