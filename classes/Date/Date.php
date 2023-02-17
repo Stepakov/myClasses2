@@ -8,6 +8,8 @@ class Date
     private int $month;
     private int $year;
 
+    private int $currentYear;
+
     private string $delimiter;
 
     /**
@@ -15,14 +17,17 @@ class Date
      * @param int $month
      * @param int $year
      */
-    public function __construct(int $day, int $month, int $year, $delimiter = '-' )
+    public function __construct(int $day, int $month, int $year, string $delimiter = '-', int $currentYear = 2023 )
     {
+        $this->currentYear = $currentYear;
+
         $this->correctDayMonthYear( $day, $month, $year );
 
         $this->day = $day;
         $this->month = $month;
         $this->year = $year;
         $this->delimiter = $delimiter;
+
     }
 
     public function getDate() : string
@@ -34,7 +39,7 @@ class Date
     {
         if( $day < 1 || $day > 31 ) throw new \Exception( 'Day is not correct' );
         if( $month < 1 || $month > 12 ) throw new \Exception( 'Month is not correct' );
-        if( $year > date( 'Y' ) ) throw new \Exception( 'Year is not correct' );
+        if( $year < 1900 || $year > $this->currentYear ) throw new \Exception( 'Year is not correct' );
     }
 
     public function __toString(): string

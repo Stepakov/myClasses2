@@ -18,7 +18,7 @@ class StudentTextRepository extends TextRepository
             $lineData = explode( $this->delimiter, $line );
 
             $date = explode( '-', $lineData[ 2 ] );
-            $data[] = new Student( new Name( $lineData[ 0 ], $lineData[ 1 ] ), new Date( $date[ 0 ], $date[ 1 ], $date[ 2 ] ) );
+            $data[] = new Student( new Name( $lineData[ 0 ], $lineData[ 1 ] ), new Date( $date[ 0 ], $date[ 1 ], $date[ 2 ], '-', date( 'Y' ) ) );
         }
 
         return $data;
