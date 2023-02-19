@@ -6,6 +6,7 @@ use classes\Entities\Student\Student;
 use classes\PureClasses\Date\Date;
 use classes\PureClasses\Name\Name;
 use classes\Repositories\TextRepository\TextRepository\TextRepository;
+use DateTime;
 
 class StudentTextRepository extends TextRepository
 {
@@ -17,11 +18,11 @@ class StudentTextRepository extends TextRepository
         {
             $lineData = explode( $this->delimiter, $line );
 
-            $dt = explode( '-', $lineData[ 2 ] );
+            list( $day, $month, $year )  = explode( '-', $lineData[ 2 ] );
 
             $students[] = new Student(
                 new Name( $lineData[ 0 ], $lineData[ 1 ] ),
-                new Date( $dt[ 0 ], $dt[ 1 ], $dt[ 2 ], '-', date( 'Y' )  )
+                new Date( $day, $month, $year, new DateTime(), '-' )
             );
         }
 

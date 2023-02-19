@@ -7,6 +7,7 @@ use classes\others\Db\Db;
 use classes\PureClasses\Date\Date;
 use classes\PureClasses\Name\Name;
 use classes\Repositories\BaseRepository\BaseRepository;
+use DateTime;
 
 class MysqlRepository extends BaseRepository
 {
@@ -35,8 +36,8 @@ class MysqlRepository extends BaseRepository
 
         foreach( $lines as $line )
         {
-            $date = array_reverse( explode( '-', $line[ 'birthday' ] ) );
-            $data[] = new Student( new Name( $line[ 'firstName' ], $line[ 'lastName' ] ), new Date( $date[ 0 ], $date[ 1 ], $date[ 2 ], '-', date( 'Y' ) ) );
+            list( $day, $month, $year ) = array_reverse( explode( '-', $line[ 'birthday' ] ) );
+            $data[] = new Student( new Name( $line[ 'firstName' ], $line[ 'lastName' ] ), new Date( $day, $month, $year, new DateTime ) );
         }
 
         return $data;

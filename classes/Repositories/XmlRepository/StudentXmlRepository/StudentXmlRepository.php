@@ -6,6 +6,8 @@ use classes\Entities\Student\Student;
 use classes\PureClasses\Date\Date;
 use classes\PureClasses\Name\Name;
 use classes\Repositories\BaseRepository\BaseRepository;
+use DateTime;
+use SimpleXMLElement;
 
 class StudentXmlRepository extends BaseRepository
 {
@@ -36,14 +38,14 @@ class StudentXmlRepository extends BaseRepository
         if( !file_exists( self::$filename ) ) throw new \Exception( 'File does not exists' );
     }
 
-    protected function generateData( \SimpleXMLElement &$lines ) : array
+    protected function generateData( SimpleXMLElement &$lines ) : array
     {
         $data = [];
 
         foreach( $lines->student as $line )
         {
-            $date = explode( '-', $line->birthday );
-            $data[] = new Student( new Name( $line->firstName, $line->lastName ), new Date( $date[ 0 ], $date[ 1 ], $date[ 2 ] ) );
+            list( $day, $month, $year ) = explode( '-', $line->birthday );
+            $data[] = new Student( new Name( $line->firstName, $line->lastName ), new Date( $day, $month, $year, new DateTime ) );
         }
 
         return $data;

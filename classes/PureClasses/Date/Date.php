@@ -2,30 +2,33 @@
 
 namespace classes\PureClasses\Date;
 
+use DateTime;
+
 class Date
 {
     private int $day;
     private int $month;
     private int $year;
-    private int $currentYear;
+    private DateTime $currentDateTime;
     private string $delimiter;
 
     /**
      * @param int $day
      * @param int $month
      * @param int $year
+     * @param DateTime $currentDateTime
+     * @param string $delimiter
+     * @throws \Exception
      */
-    public function __construct(int $day, int $month, int $year, string $delimiter = '-', int $currentYear = 2023 )
+    public function __construct(int $day, int $month, int $year, DateTime $currentDateTime, string $delimiter = '-' )
     {
-        $this->currentYear = $currentYear;
-
-        $this->correctDayMonthYear( $day, $month, $year );
-
+        $this->currentDateTime = $currentDateTime;
         $this->day = $day;
         $this->month = $month;
         $this->year = $year;
         $this->delimiter = $delimiter;
 
+        $this->correctDayMonthYear();
     }
 
     public function getDate() : string
@@ -33,11 +36,15 @@ class Date
         return $this->day . $this->delimiter . $this->month . $this->delimiter . $this->year;
     }
 
-    private function correctDayMonthYear(int $day, int $month, int $year) : void
+    private function correctDayMonthYear() : void
     {
-        if( $day < 1 || $day > 31 ) throw new \Exception( 'Day is not correct' );
-        if( $month < 1 || $month > 12 ) throw new \Exception( 'Month is not correct' );
-        if( $year < 1900 || $year > $this->currentYear ) throw new \Exception( 'Year is not correct' );
+        if( $this->day < 1 || $this->day > 31 ) throw new \Exception( 'Day is not correct' );
+        if( $this->month < 1 || $this->month > 12 ) throw new \Exception( 'Month is not correct' );
+        if( $this->currentDateTime->format( 'Y' ) < $this->year ) throw new \Exception( 'Year is not correct' );
+
+        if( $this->currentDateTime < new DateTime( $this->day . '-' . $this->month . '-' . $this->year ) )
+            throw new \Exception( 'Date is not correct' );
+
     }
 
     public function __toString(): string
