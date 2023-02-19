@@ -9,9 +9,9 @@ class NameTest extends TestCase
 {
     public function testCreate()
     {
-        $name = new Name( 'S', 'S' );
+        $name = new Name( 'Sa', 'Sb' );
 
-        $this->assertEquals( 'S S', $name->getFullName() );
+        $this->assertEquals( 'Sa Sb', $name->getFullName() );
     }
     public function testGetFirstName()
     {
@@ -54,23 +54,103 @@ class NameTest extends TestCase
         new Name( 'acsdfghjklacsdfghjklacsdfghjkld', '' );
     }
 
-    /*
-     * 's' 's'
-     * 's'
-     * 's'
-     * '' ''
-     * '' ''
-     * 'asdf' ''
-     * 'asdf' ''
-     *------------------
-     * 'S' ''
-     * 'S' 'asdf'
-     * '' 'S'
-     * 'asdf' 'S'
-     *
-     * ''
-     * 'asdf'
-     * 'S'
-     * 'S'
-     */
+    public function testExceptionClassLastNameEmptyConstruct()
+    {
+        $this->expectException( \Exception::class );
+
+        new Name( 'Sa', '' );
+    }
+
+    public function testExceptionMessageEmptyConstructLastName()
+    {
+        $this->expectExceptionMessage( 'lastName is empty' );
+
+        new Name( 'Sa', '' );
+    }
+    public function testExceptionClassLastNameMore30Chars()
+    {
+        $this->expectException( \Exception::class );
+
+        new Name( 'Sa', 'acsdfghjklacsdfghjklacsdfghjkld' );
+    }
+
+    public function testExceptionMessageMore30CharsConstructLastName()
+    {
+        $this->expectExceptionMessage( 'lastName is more than 30 characters' );
+
+        new Name( 'Sa', 'acsdfghjklacsdfghjklacsdfghjkld' );
+    }
+
+    public function testExceptionSetEmptyFirstName()
+    {
+        $this->expectException( \Exception::class );
+
+        $name = new Name( 'S', 'S' );
+
+        $name->setFIrstName( '' );
+    }
+
+    public function testExceptionMessageSetEmptyFirstName()
+    {
+        $this->expectExceptionMessage( 'firstName is empty' );
+
+        $name = new Name( 'S', 'S' );
+
+        $name->setFIrstName( '' );
+    }
+
+    public function testExceptionSetEmptyLastName()
+    {
+        $this->expectException( \Exception::class );
+
+        $name = new Name( 'S', 'S' );
+
+        $name->setLastName( '' );
+    }
+
+    public function testExceptionMessageSetEmptyLastName()
+    {
+        $this->expectExceptionMessage( 'lastName is empty' );
+
+        $name = new Name( 'S', 'S' );
+
+        $name->setLastName( '' );
+    }
+
+    public function testExceptionSetMore30CharsFirstName()
+    {
+        $this->expectException( \Exception::class );
+
+        $name = new Name( 'S', 'S' );
+
+        $name->setFIrstName( 'acsdfghjklacsdfghjklacsdfghjkld' );
+    }
+
+    public function testExceptionMessageSetMore30CharsFirstName()
+    {
+        $this->expectExceptionMessage( 'firstName is more than 30 characters' );
+
+        $name = new Name( 'S', 'S' );
+
+        $name->setFIrstName( 'acsdfghjklacsdfghjklacsdfghjkld' );
+    }
+
+    public function testExceptionSetMore30CharsLastName()
+    {
+        $this->expectException( \Exception::class );
+
+        $name = new Name( 'S', 'S' );
+
+        $name->setLastName( 'acsdfghjklacsdfghjklacsdfghjkld' );
+    }
+
+    public function testExceptionMessageSetMore30CharsLastName()
+    {
+        $this->expectExceptionMessage( 'lastName is more than 30 characters' );
+
+        $name = new Name( 'S', 'S' );
+
+        $name->setLastName( 'acsdfghjklacsdfghjklacsdfghjkld' );
+    }
+
 }
