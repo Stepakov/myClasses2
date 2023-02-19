@@ -13,10 +13,18 @@ class Name
      */
     public function __construct(string $firstName, string $lastName)
     {
-        $this->notEmptyAndLess30Chars( $firstName );
-        $this->notEmptyAndLess30Chars( $lastName );
+        $this->checkIsValidFirstName( $firstName );
+        $this->checkIsValidLastName( $lastName );
         $this->firstName = $firstName;
         $this->lastName = $lastName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName() : string
+    {
+        return $this->firstName . ' ' . $this->lastName;
     }
 
     /**
@@ -28,14 +36,6 @@ class Name
     }
 
     /**
-     * @param string $firstName
-     */
-    public function setFirstName(string $firstName): void
-    {
-        $this->firstName = $firstName;
-    }
-
-    /**
      * @return string
      */
     public function getLastName(): string
@@ -44,10 +44,21 @@ class Name
     }
 
     /**
+     * @param string $firstName
+     */
+    public function setFirstName(string $firstName): void
+    {
+        $this->checkIsValidFirstName( $firstName );
+        $this->firstName = $firstName;
+    }
+
+
+    /**
      * @param string $lastName
      */
     public function setLastName(string $lastName): void
     {
+        $this->checkIsValidLastName( $lastName );
         $this->lastName = $lastName;
     }
 
@@ -56,19 +67,23 @@ class Name
      * @return void
      * @throws \Exception
      */
-    private function notEmptyAndLess30Chars(string $name) : void
+    private function checkIsValidFirstName( string $firstName ) : void
     {
-        if( empty( $name ) ) throw new \Exception( 'Name is empty' );
-        if( strlen( $name ) > 30 ) throw new \Exception( 'Name is more 30 characters' );
+        if( empty( $firstName ) ) throw new \Exception( 'firstName is empty' );
+        if( strlen( $firstName ) > 30 ) throw new \Exception( 'firstName is more than 30 characters' );
     }
 
     /**
-     * @return string
+     * @param string $lastName
+     * @return void
+     * @throws \Exception
      */
-    public function getFullName() : string
+    private function checkIsValidLastName(string $lastName ) : void
     {
-        return $this->firstName . ' ' . $this->lastName;
+        if( empty( $lastName ) ) throw new \Exception( 'lastName is empty' );
+        if( strlen( $lastName ) > 30 ) throw new \Exception( 'lastName is more than 30 characters' );
     }
+
 
     public function __toString() : string
     {
@@ -79,6 +94,5 @@ class Name
     {
         return $this->getFullName();
     }
-
 
 }
