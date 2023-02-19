@@ -153,4 +153,18 @@ class NameTest extends TestCase
         $name->setLastName( 'acsdfghjklacsdfghjklacsdfghjkld' );
     }
 
+    public function testInvoke()
+    {
+        $name = new Name( 'Sa', 'Sb' );
+
+        $this->assertEquals( 'Sa Sb', $name() );
+    }
+
+    public function testToString()
+    {
+        $name = new Name( 'Sa', 'Sb' );
+
+        $this->assertEquals( 'Sa Sb', $name );
+    }
+
 }
