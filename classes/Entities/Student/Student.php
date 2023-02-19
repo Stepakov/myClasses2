@@ -1,9 +1,9 @@
 <?php
 
-namespace classes\Student;
+namespace classes\Entities\Student;
 
-use classes\Date\Date;
-use classes\Name\Name;
+use classes\PureClasses\Date\Date;
+use classes\PureClasses\Name\Name;
 
 class Student
 {

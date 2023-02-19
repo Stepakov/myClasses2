@@ -2,10 +2,10 @@
 
 namespace classes\Repositories\TextRepository\StudentTextRepository;
 
-use classes\Date\Date;
-use classes\Name\Name;
+use classes\Entities\Student\Student;
+use classes\PureClasses\Date\Date;
+use classes\PureClasses\Name\Name;
 use classes\Repositories\TextRepository\TextRepository\TextRepository;
-use classes\Student\Student;
 
 class StudentTextRepository extends TextRepository
 {

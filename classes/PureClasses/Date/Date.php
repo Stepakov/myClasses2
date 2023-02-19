@@ -1,6 +1,6 @@
 <?php
 
-namespace classes\Date;
+namespace classes\PureClasses\Date;
 
 class Date
 {

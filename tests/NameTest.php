@@ -2,7 +2,7 @@
 
 namespace tests;
 
-use classes\Name\Name;
+use classes\PureClasses\Name\Name;
 use PHPUnit\Framework\TestCase;
 
 class NameTest extends TestCase

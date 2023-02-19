@@ -2,9 +2,9 @@
 
 namespace classes\StudentMysqlRepository;
 
-use classes\Date\Date;
-use classes\Name\Name;
-use classes\Student\Student;
+use classes\Entities\Student\Student;
+use classes\PureClasses\Date\Date;
+use classes\PureClasses\Name\Name;
 use classes\TextRepository\TextRepository;
 
 class StudentMysqlRepository extends TextRepository

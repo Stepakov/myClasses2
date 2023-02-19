@@ -1,6 +1,6 @@
 <?php
 
-namespace classes\Gender;
+namespace classes\PureClasses\Gender;
 
 class Gender
 {

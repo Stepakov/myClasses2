@@ -1,6 +1,6 @@
 <?php
 
-namespace classes\Name;
+namespace classes\PureClasses\Name;
 
 class Name
 {
