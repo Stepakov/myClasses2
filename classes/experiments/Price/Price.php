@@ -9,16 +9,16 @@ class Price
     // price in pennies
     private int $price;
 
-    private Discount $discount;
+    private array $discounts;
 
     /**
      * @param int $price
      * @param Discount $discount
      */
-    public function __construct(int $price, Discount $discount )
+    public function __construct( int $price, array $discounts )
     {
         $this->price = $price;
-        $this->discount = $discount;
+        $this->discounts = $discounts;
     }
 
     public function getPrice() : int
@@ -38,11 +38,25 @@ class Price
 
     private function calculatePrice() : int
     {
-        return $this->price - intval( $this->price * $this->discount->getDiscount() / 100 );
+        $totalDiscount = $this->getTotalDiscount();
+        return $this->price - intval( $this->price * $totalDiscount / 100 );
     }
 
     public function getDiscountProfit() : int
     {
-        return intval( $this->price * $this->discount->getDiscount() / 100 );
+        $totalDiscount = $this->getTotalDiscount();
+        return intval( $this->price * $totalDiscount / 100 );
+    }
+
+    private function getTotalDiscount() : float
+    {
+        $totalDiscount = 0;
+
+        foreach( $this->discounts as $discount )
+        {
+            $totalDiscount += $discount->getDiscount();
+        }
+
+        return $totalDiscount;
     }
 }
